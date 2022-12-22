@@ -1,0 +1,34 @@
+.options{
+    display:flex;
+    justify-content: space-between;
+    width:100%;
+}
+
+.option{
+    width: 15%;
+    text-align: center;
+    border-radius: 30%;
+}
+
+.overall-question{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.first{
+    background-color: yellow;
+}
+
+.second{
+    background-color:aqua;
+}
+
+.third{
+    background-color: darkorange;
+}
+
+.fourth{
+    background-color: deeppink;
+}
