@@ -7,7 +7,7 @@
 .option{
     width: 15%;
     text-align: center;
-    border-radius: 30%;
+    
 }
 
 .overall-question{
@@ -19,16 +19,24 @@
 
 .first{
     background-color: yellow;
+    word-wrap: break-word;
+    vertical-align: middle;
 }
 
 .second{
     background-color:aqua;
+    word-wrap: break-word;
+    vertical-align: middle;
 }
 
 .third{
     background-color: darkorange;
+    word-wrap: break-word;
+    vertical-align: middle;
 }
 
 .fourth{
     background-color: deeppink;
+    word-wrap: break-word;
+    vertical-align: middle;
 }
