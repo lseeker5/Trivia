@@ -2,10 +2,12 @@
     display:flex;
     justify-content: space-between;
     width:100%;
+    
 }
 
 .option{
     width: 15%;
+    
     text-align: center;
     
 }
@@ -14,6 +16,7 @@
     display:flex;
     flex-direction: column;
     align-items: center;
+    border-bottom: 3px solid black;
 
 }
 
@@ -21,22 +24,47 @@
     background-color: yellow;
     word-wrap: break-word;
     vertical-align: middle;
+    
 }
 
 .second{
     background-color:aqua;
     word-wrap: break-word;
     vertical-align: middle;
+    
 }
 
 .third{
     background-color: darkorange;
     word-wrap: break-word;
     vertical-align: middle;
+    
 }
 
 .fourth{
-    background-color: deeppink;
+    background-color:greenyellow;
     word-wrap: break-word;
     vertical-align: middle;
+
+    
+}
+
+.submit-button-div{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3%;
+
+}
+
+.submit-button{
+    height:5%;
+    width:15%;
+    font-size: larger;
+    border-radius:  40%;
+}
+
+.selected{
+    border:3px solid red;
+    box-sizing: border-box;
 }

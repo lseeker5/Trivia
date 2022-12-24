@@ -2,10 +2,17 @@ import './Question.css'
 import React from 'react'
 
 export default function Question(props){
-    let options=[...props.question.incorrectAnswers]  
-    let index=Math.round(3*Math.random())
-    let correctAnswer=props.question.correctAnswer
-    options.splice(index,0,correctAnswer)
+    const [options,setOptions]=React.useState([])
+    
+    React.useEffect(()=>{
+        let Options=[...props.question.incorrectAnswers]  
+        let index=Math.round(3*Math.random())
+        let correctAnswer=props.question.correctAnswer
+        Options.splice(index,0,correctAnswer)
+        setOptions(Options)
+    },[])
+
+    
     const onClick=props.onClick
     let parentId=props.question.id
     

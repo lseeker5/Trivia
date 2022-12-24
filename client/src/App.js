@@ -11,6 +11,26 @@ function App() {
   const [questions,setQuestions]=React.useState([])
   const[submitted,setSubmitted]=React.useState(false)
   const [score,setScore]=React.useState(0)
+  const[reset,setReset]=React.useState(false)
+  const [scoreList,setScoreList]=React.useState([])
+  const[username,setUsername]=React.useState("")
+  const[userscore,setUserscore]=React.useState(0)
+  const[updated,setUpdated]=React.useState(false)
+
+  React.useEffect(()=>{
+    Axios.get("http://localhost:3001/get").then((response=>{
+      setScoreList(response.data)
+    }))
+  },[updated])
+
+  const updateDatabase=()=>{
+    Axios.post('http://localhost:3001/insert',{
+      username:username,
+      userscore:userscore
+    })  
+
+    setUpdated(prev=>!prev)
+    }
 
   function startQuiz(){
     setOnStartPage(false)
@@ -18,10 +38,11 @@ function App() {
   }
 
   function clickedOption(val){
+    val.target.classList.add("selected")
     const ID=val.target.parentElement.id
-    //console.log(ID) ID is there 
+    
     const value=val.target.innerText
-    //console.log(value) value is there
+    
     const newQuestions=[...questions]
     for(let i=0;i<newQuestions.length;i++){
       if(newQuestions[i].id===ID){
@@ -50,9 +71,29 @@ function App() {
     setSubmitted(true)
   }
 
+  function handleReset(){
+    setSubmitted(false)
+    setOnStartPage(true)
+    setReset(prev=>!prev)
+    setScore(0)
+    setUsername("")
+    setUserscore(0)
+    setUpdated(false)
+  }
+
+  function handleChangeInUsername(val){
+    setUsername(val.target.value)
+  }
+
+  function handleChangeInUserscore(val){
+    setUserscore(val.target.value)
+  }
+
+ 
+
   React.useEffect(()=>{
     Axios.get("https://the-trivia-api.com/api/questions?limit=5").then((res)=>{
-      
+      setQuestions([])
       res.data.map((entry)=>{
         let Q={}
         let {id}=entry
@@ -63,13 +104,14 @@ function App() {
         Q.question=question
         Q.correctAnswer=correctAnswer
         Q.incorrectAnswers=incorrectAnswers
+        
         setQuestions(prev=>[...prev,Q])
       })
     })
-  },[])
+  },[reset])
 
   const QuestionPage=questions.map((question)=>{
-    //console.log(question) okay so the item being passed down is correct
+    
     return (
       <Question 
       question={question}
@@ -77,8 +119,9 @@ function App() {
       />
     )
   })
-    const submitButton=<div className='overall-question'><button onClick={handleSubmit}>SUBMIT</button></div>
+    const submitButton=<div className='submit-button-div'><button className='submit-button' onClick={handleSubmit}>SUBMIT</button></div>
   
+    const Scorelist=<div>{scoreList}</div>
   
 
   return (
@@ -86,7 +129,18 @@ function App() {
       {onStartPage&&<StartPage onClick={startQuiz} />}
       {onQuestionPage&&QuestionPage}
       {onQuestionPage&&submitButton}
-      {submitted&&<h1>{score}</h1>}
+      {submitted&&
+      <div>
+        <h1>CONGRATS YOU GOT</h1>
+        <h1>{score}</h1>
+        <h1>POINTS</h1>
+      </div>
+      }
+      {submitted&&<button onClick={handleReset}>RESET</button>}
+      {submitted&&<input placeholder="username" onChange={(e)=>{handleChangeInUsername(e)}}></input>}
+      {submitted&&<input placeholder="score" onChange={(e)=>{handleChangeInUserscore(e)}}></input>}
+      {submitted&&<button onClick={updateDatabase}>send</button>}
+      {submitted&&Scorelist}
     </div>
   );
 }
