@@ -20,6 +20,7 @@ function App() {
   React.useEffect(()=>{
     Axios.get("http://localhost:3001/get").then((response=>{
       setScoreList(response.data)
+      console.log(scoreList)
     }))
   },[updated])
 
@@ -50,13 +51,13 @@ function App() {
       }
     }
     setQuestions(newQuestions)
-    console.log(questions)
+    
   }
 
   function checkScore(){
     const finalQuestions=[...questions]
     let score=0
-    console.log(finalQuestions)
+    
     for(let i=0;i<finalQuestions.length;i++){
       if(finalQuestions[i].selectedOption===finalQuestions[i].correctAnswer){
         score+=1

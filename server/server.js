@@ -24,7 +24,7 @@ app.get('/get',(req,res)=>{
 })
 
 
-app.post('insert',(req,res)=>{
+app.post('/insert',(req,res)=>{
     const username=req.body.username
     const userscore=req.body.userscore
     const sqlInsert="INSERT INTO trivia (username,userscore) VALUES (?,?)"
