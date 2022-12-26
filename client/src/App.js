@@ -25,7 +25,7 @@ function App() {
       setScoreList(response.data)    
     }))
     
-  },[updated])
+  },[])
 
   React.useEffect(()=>{
     console.log(scoreList)
@@ -38,6 +38,11 @@ function App() {
     })
     
      setUpdated(prev=>!prev)
+     const newScores=setTimeout(() => {
+      Axios.get("http://localhost:3001/get").then((response=>{
+      setScoreList(response.data)    
+    }))
+     }, 1000);
     }
 
   function startQuiz(){
