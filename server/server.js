@@ -17,7 +17,7 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}))
 
 app.get('/get',(req,res)=>{
-    const sqlGet='SELECT * from trivia '
+    const sqlGet='SELECT * FROM trivia ORDER BY userscore DESC; '
     db.query(sqlGet,(err,result)=>{     
         res.send(result)
     })

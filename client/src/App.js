@@ -9,28 +9,37 @@ function App() {
   const[onStartPage,setOnStartPage]=React.useState(true)
   const [onQuestionPage,setOnQuestionPage]=React.useState(false)
   const [questions,setQuestions]=React.useState([])
+  //submitted does not mean anything is sent to database
   const[submitted,setSubmitted]=React.useState(false)
   const [score,setScore]=React.useState(0)
+  //reset means going back to start page
   const[reset,setReset]=React.useState(false)
   const [scoreList,setScoreList]=React.useState([])
   const[username,setUsername]=React.useState("")
   const[userscore,setUserscore]=React.useState(0)
+  //means new entries are sent into sql
   const[updated,setUpdated]=React.useState(false)
 
   React.useEffect(()=>{
     Axios.get("http://localhost:3001/get").then((response=>{
-      setScoreList(response.data)
-      console.log(scoreList)
+      setScoreList(response.data)    
     }))
+    
   },[updated])
 
+  React.useEffect(()=>{
+    console.log(scoreList)
+  },[scoreList])
+  
   const updateDatabase=()=>{
     Axios.post('http://localhost:3001/insert',{
       username:username,
       userscore:userscore
-    })  
-
-    setUpdated(prev=>!prev)
+    })
+    
+      Axios.get("http://localhost:3001/get").then((response=>{
+        setScoreList(response.data)    
+      }))
     }
 
   function startQuiz(){
@@ -122,7 +131,14 @@ function App() {
   })
     const submitButton=<div className='submit-button-div'><button className='submit-button' onClick={handleSubmit}>SUBMIT</button></div>
   
-    const Scorelist=<div>{scoreList}</div>
+    const Scorelist=scoreList.map((score)=>{
+      return(
+        <div className='scores'>
+          <h1>{score.username}</h1>
+          <h1>{score.userscore}</h1>
+        </div>
+      )
+    })
   
 
   return (
