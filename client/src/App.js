@@ -42,7 +42,7 @@ function App() {
       Axios.get("http://localhost:3001/get").then((response=>{
       setScoreList(response.data)    
     }))
-     }, 1000);
+     }, 100);
     }
 
   function startQuiz(){
