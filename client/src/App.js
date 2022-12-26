@@ -37,9 +37,7 @@ function App() {
       userscore:userscore
     })
     
-      Axios.get("http://localhost:3001/get").then((response=>{
-        setScoreList(response.data)    
-      }))
+     setUpdated(prev=>!prev)
     }
 
   function startQuiz(){
