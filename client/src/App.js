@@ -137,11 +137,28 @@ function App() {
     const Scorelist=scoreList.map((score)=>{
       return(
         <div className='scores'>
-          <h1>{score.username}</h1>
-          <h1>{score.userscore}</h1>
+          <h1 className='username'>{score.username}</h1>
+          <h1 className='userscore'>{score.userscore}</h1>
         </div>
       )
     })
+
+    const FinalPage=
+    <div className='final-page'>
+      <div className='final-page-congrats'>
+        <p>CONGRATS YOU GOT</p>
+        <p>{score}</p>
+        <p>POINTS</p>
+      </div>
+      <button className='final-page-reset final-page-button'onClick={handleReset}>PLAY AGAIN</button>
+      <p>ADD YOUR NAME TO THE LEADERBOARDS</p>
+      <div className='final-page-inputs'>
+        <input className='final-page-username'placeholder="username" onChange={(e)=>{handleChangeInUsername(e)}}></input>
+        <input className='final-page-userscore'placeholder="score" onChange={(e)=>{handleChangeInUserscore(e)}}></input>
+      </div>
+      <button className='final-page-send final-page-button'onClick={updateDatabase}>ADD</button>
+      {Scorelist}
+    </div>
   
 
   return (
@@ -149,18 +166,7 @@ function App() {
       {onStartPage&&<StartPage onClick={startQuiz} />}
       {onQuestionPage&&QuestionPage}
       {onQuestionPage&&submitButton}
-      {submitted&&
-      <div>
-        <h1>CONGRATS YOU GOT</h1>
-        <h1>{score}</h1>
-        <h1>POINTS</h1>
-      </div>
-      }
-      {submitted&&<button onClick={handleReset}>RESET</button>}
-      {submitted&&<input placeholder="username" onChange={(e)=>{handleChangeInUsername(e)}}></input>}
-      {submitted&&<input placeholder="score" onChange={(e)=>{handleChangeInUserscore(e)}}></input>}
-      {submitted&&<button onClick={updateDatabase}>send</button>}
-      {submitted&&Scorelist}
+      {submitted&&FinalPage} 
     </div>
   );
 }
