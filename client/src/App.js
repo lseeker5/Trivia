@@ -1,8 +1,9 @@
-import StartPage from './StartPage';
+
 import Question from './Question';
 import './App.css';
 import React from'react'
 import Axios from 'axios';
+import TriviaLogo from './trivia logo.jpg'
 
 function App() {
 
@@ -16,7 +17,6 @@ function App() {
   const[reset,setReset]=React.useState(false)
   const [scoreList,setScoreList]=React.useState([])
   const[username,setUsername]=React.useState("")
-  const[userscore,setUserscore]=React.useState(0)
   //means new entries are sent into sql
   const[updated,setUpdated]=React.useState(false)
 
@@ -26,7 +26,7 @@ function App() {
     }))
     
   },[])
-
+  //meant to check if the right data is taken from the database
   React.useEffect(()=>{
     console.log(scoreList)
   },[scoreList])
@@ -34,10 +34,9 @@ function App() {
   const updateDatabase=()=>{
     Axios.post('http://localhost:3001/insert',{
       username:username,
-      userscore:userscore
+      userscore:score
     })
     
-     setUpdated(prev=>!prev)
      const newScores=setTimeout(() => {
       Axios.get("http://localhost:3001/get").then((response=>{
       setScoreList(response.data)    
@@ -90,7 +89,6 @@ function App() {
     setReset(prev=>!prev)
     setScore(0)
     setUsername("")
-    setUserscore(0)
     setUpdated(false)
   }
 
@@ -98,11 +96,7 @@ function App() {
     setUsername(val.target.value)
   }
 
-  function handleChangeInUserscore(val){
-    setUserscore(val.target.value)
-  }
 
- 
 
   React.useEffect(()=>{
     Axios.get("https://the-trivia-api.com/api/questions?limit=5").then((res)=>{
@@ -136,10 +130,10 @@ function App() {
   
     const Scorelist=scoreList.map((score)=>{
       return(
-        <div className='scores'>
-          <h1 className='username'>{score.username}</h1>
-          <h1 className='userscore'>{score.userscore}</h1>
-        </div>
+        <tr className='scores'>
+          <td className='username'>{score.username}</td>
+          <td className='userscore'>{score.userscore}</td>
+        </tr>
       )
     })
 
@@ -154,16 +148,28 @@ function App() {
       <p>ADD YOUR NAME TO THE LEADERBOARDS</p>
       <div className='final-page-inputs'>
         <input className='final-page-username'placeholder="username" onChange={(e)=>{handleChangeInUsername(e)}}></input>
-        <input className='final-page-userscore'placeholder="score" onChange={(e)=>{handleChangeInUserscore(e)}}></input>
       </div>
       <button className='final-page-send final-page-button'onClick={updateDatabase}>ADD</button>
-      {Scorelist}
+      <h1>LEADERBOARDS</h1>
+      <table className='table'>
+        <tr>
+          <td className='username'>User</td>
+          <td className='userscore'>Score</td>
+        </tr>
+        {Scorelist}
+      </table>
     </div>
   
 
   return (
     <div className="App">
-      {onStartPage&&<StartPage onClick={startQuiz} />}
+      {onStartPage&&
+      <div className='start-page-full'>
+        
+        <button className='start-page-button' onClick={startQuiz}>START</button>
+        
+      </div>
+      }
       {onQuestionPage&&QuestionPage}
       {onQuestionPage&&submitButton}
       {submitted&&FinalPage} 

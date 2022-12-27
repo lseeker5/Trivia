@@ -3,7 +3,13 @@ body{
 }
 
 .scores{
-    display:flex;
+    width:60%;
+}
+
+.table{
+    width: 40%;
+    border:2px solid red;
+    border-collapse: collapse;
 }
 
 .final-page{
@@ -23,8 +29,8 @@ body{
 .final-page-inputs{
     display:flex;
     width:30%;
-    justify-content: space-between;
-    
+    justify-content:center;
+
     margin-bottom: 3%;
 }
 
@@ -33,4 +39,49 @@ body{
     width:30%;
     display:flex;
     justify-content:space-between
+}
+
+.username{
+    border-right: 1px solid red;
+    border-bottom: 1px solid red;
+    text-align: center;
+    border-collapse: collapse;
+    font-size: x-large;
+}
+
+.userscore{
+    border-bottom: 1px solid red;
+    text-align: center;
+    border-collapse: collapse;
+    font-size: x-large;
+}
+
+
+
+
+.start-page-full{
+   
+    
+    background-image: url('./trivia logo.jpg');
+    height:100vh;
+    background-position: center center;
+    
+}
+
+
+
+.start-page-button{
+    background-color:darkorange;
+    border:none;
+    color:white;
+    width:19%;  
+    font-size: 500%;
+    margin-top: 38.8%;
+    margin-left: 81.0%;
+    margin-right:0.5%;
+    border-radius: 40%;
+}
+
+.App{
+    height:100vh;
 }
